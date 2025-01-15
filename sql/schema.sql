@@ -13,8 +13,8 @@ CREATE TABLE users (
     passwd TEXT NOT NULL, -- DO NOT store clear text of this
     birthday DATE NOT NULL,
     phone_number TEXT NOT NULL,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE addresses (
@@ -28,8 +28,8 @@ CREATE TABLE addresses (
     city TEXT,
     postal_code TEXT,
     phone_number TEXT,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE addresses
@@ -40,15 +40,15 @@ REFERENCES users (id);
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     category TEXT,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE transfer_types (
     id SERIAL PRIMARY KEY,
     transfer_type TEXT NOT NULL,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE prints (
@@ -58,8 +58,8 @@ CREATE TABLE prints (
     -- should a larger range be used here?
     price NUMERIC(12,2) NOT NULL,
     url_to_print TEXT NOT NULL,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE prints
@@ -75,8 +75,8 @@ REFERENCES transfer_types (id);
 CREATE TABLE suppliers (
     id SERIAL PRIMARY KEY,
     brand TEXT,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE products (
@@ -85,8 +85,8 @@ CREATE TABLE products (
     price numeric(12,2),
     cost numeric(12,2),
     quantity INTEGER,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE products
@@ -103,8 +103,8 @@ CREATE TABLE product_skus (
     price numeric(12,2),
     cost numeric(12,2),
     quantity INTEGER,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE product_skus
@@ -127,21 +127,21 @@ CREATE TABLE sku_attributes (
     product_sku_id INTEGER,
     attribute_type TEXT NOT NULL,
     attribute_value TEXT NOT NULL,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE sku_attributes
 ADD CONSTRAINT fk_product_sku_id
 FOREIGN KEY (product_sku_id) 
-REFERENCES categories (id);
+REFERENCES product_skus (id);
 
 CREATE TABLE cart (
     id SERIAL PRIMARY KEY,
     user_id INTEGER,
     total NUMERIC(12,2),
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE cart
@@ -154,8 +154,8 @@ CREATE TABLE cart_item(
     cart_id INTEGER,
     product_sku_id INTEGER,
     quantity INTEGER,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE cart_item
@@ -171,8 +171,8 @@ REFERENCES product_skus (id);
 CREATE TABLE order_statuses (
     id SERIAL PRIMARY KEY,
     order_status TEXT,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE order_details (
@@ -182,8 +182,8 @@ CREATE TABLE order_details (
     total NUMERIC(12,2),
     order_status INTEGER,
     order_notes TEXT,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE order_details
@@ -194,15 +194,15 @@ REFERENCES users (id);
 CREATE TABLE payment_systems (
     id SERIAL PRIMARY KEY,
     payment_system TEXT,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE payment_states (
     id SERIAL PRIMARY KEY,
     payment_state TEXT,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE payment_details (
@@ -211,8 +211,8 @@ CREATE TABLE payment_details (
     amount NUMERIC(12,2),
     payment_system INTEGER,
     payment_status INTEGER,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE payment_details
@@ -236,8 +236,8 @@ CREATE TABLE order_item (
     product_id INTEGER,
     quantity INTEGER,
     order_item_notes TEXT,
-    created_at TIMESTAMP default current_timestamp,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE order_item
