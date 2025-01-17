@@ -3,11 +3,11 @@ SET search_path TO twisted_spur;
 
 -- Create a table named 'users' within the twisted_spur schema
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     -- not sure what to do with this if passwd is removed
-    email TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
     -- eventually passwd should be removed, and another authentication
     -- provider should be used externally
     passwd TEXT NOT NULL, -- DO NOT store clear text of this
@@ -18,7 +18,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE addresses (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id INTEGER,
     title TEXT,
     billing_address TEXT,
@@ -38,21 +38,21 @@ FOREIGN KEY (user_id)
 REFERENCES users (id);
 
 CREATE TABLE categories (
-    id SERIAL PRIMARY KEY,
-    category TEXT,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    category TEXT UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE transfer_types (
-    id SERIAL PRIMARY KEY,
-    transfer_type TEXT NOT NULL,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    transfer_type TEXT NOT NULL UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE prints (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     category_id INTEGER,
     transfer_type_id INTEGER,
     -- should a larger range be used here?
@@ -73,14 +73,14 @@ FOREIGN KEY (transfer_type_id)
 REFERENCES transfer_types (id);
 
 CREATE TABLE suppliers (
-    id SERIAL PRIMARY KEY,
-    brand TEXT,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    brand TEXT UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE products (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     category_id INTEGER,
     price numeric(12,2),
     cost numeric(12,2),
@@ -95,11 +95,11 @@ FOREIGN KEY (category_id)
 REFERENCES categories (id);
 
 CREATE TABLE product_skus (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     product_id INTEGER NOT NULL,
     supplier_id INTEGER NOT NULL,
     print_id INTEGER NOT NULL,
-    sku TEXT,
+    sku TEXT UNIQUE,
     price numeric(12,2),
     cost numeric(12,2),
     quantity INTEGER,
@@ -123,7 +123,7 @@ FOREIGN KEY (print_id)
 REFERENCES prints (id);
 
 CREATE TABLE sku_attributes (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     product_sku_id INTEGER,
     attribute_type TEXT NOT NULL,
     attribute_value TEXT NOT NULL,
@@ -137,7 +137,7 @@ FOREIGN KEY (product_sku_id)
 REFERENCES product_skus (id);
 
 CREATE TABLE cart (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id INTEGER,
     total NUMERIC(12,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -150,7 +150,7 @@ FOREIGN KEY (user_id)
 REFERENCES users (id);
 
 CREATE TABLE cart_item(
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     cart_id INTEGER,
     product_sku_id INTEGER,
     quantity INTEGER,
@@ -169,14 +169,14 @@ FOREIGN KEY (product_sku_id)
 REFERENCES product_skus (id);
 
 CREATE TABLE order_statuses (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     order_status TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE order_details (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id INTEGER,
     payment_id INTEGER,
     total NUMERIC(12,2),
@@ -192,21 +192,21 @@ FOREIGN KEY (user_id)
 REFERENCES users (id);
 
 CREATE TABLE payment_systems (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     payment_system TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE payment_states (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     payment_state TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE payment_details (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     order_id INTEGER,
     amount NUMERIC(12,2),
     payment_system INTEGER,
@@ -231,7 +231,7 @@ FOREIGN KEY (payment_status)
 REFERENCES payment_states (id);
 
 CREATE TABLE order_item (
-    id SERIAL PRIMARY KEY,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     order_id INTEGER,
     product_id INTEGER,
     quantity INTEGER,
