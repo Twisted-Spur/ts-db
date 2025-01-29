@@ -1,5 +1,5 @@
 -- Switch to the twisted_spur schema
-SET search_path TO twisted_spur;
+--SET search_path TO twisted_spur;
 
 -- Create a table named 'users' within the twisted_spur schema
 CREATE TABLE users (
@@ -33,7 +33,7 @@ CREATE TABLE addresses (
 );
 
 ALTER TABLE addresses
-ADD CONSTRAINT fk_user_id
+ADD CONSTRAINT fk_addresses_to_user_id
 FOREIGN KEY (user_id) 
 REFERENCES users (id);
 
@@ -63,7 +63,7 @@ CREATE TABLE prints (
 );
 
 ALTER TABLE prints
-ADD CONSTRAINT fk_category_id
+ADD CONSTRAINT fk_prints_to_category_id
 FOREIGN KEY (category_id) 
 REFERENCES categories (id);
 
@@ -90,7 +90,7 @@ CREATE TABLE products (
 );
 
 ALTER TABLE products
-ADD CONSTRAINT fk_category_id
+ADD CONSTRAINT fk_products_to_category_id
 FOREIGN KEY (category_id) 
 REFERENCES categories (id);
 
@@ -132,7 +132,7 @@ CREATE TABLE sku_attributes (
 );
 
 ALTER TABLE sku_attributes
-ADD CONSTRAINT fk_product_sku_id
+ADD CONSTRAINT fk_sku_attributes_to_product_sku_id
 FOREIGN KEY (product_sku_id) 
 REFERENCES product_skus (id);
 
@@ -145,7 +145,7 @@ CREATE TABLE cart (
 );
 
 ALTER TABLE cart
-ADD CONSTRAINT fk_user_id
+ADD CONSTRAINT fk_cart_to_user_id
 FOREIGN KEY (user_id) 
 REFERENCES users (id);
 
@@ -164,7 +164,7 @@ FOREIGN KEY (cart_id)
 REFERENCES cart (id);
 
 ALTER TABLE cart_item
-ADD CONSTRAINT fk_product_sku_id
+ADD CONSTRAINT fk_cart_item_to_product_sku_id
 FOREIGN KEY (product_sku_id) 
 REFERENCES product_skus (id);
 
@@ -187,7 +187,7 @@ CREATE TABLE order_details (
 );
 
 ALTER TABLE order_details
-ADD CONSTRAINT fk_user_id
+ADD CONSTRAINT fk_order_details_to_user_id
 FOREIGN KEY (user_id)
 REFERENCES users (id);
 
@@ -216,7 +216,7 @@ CREATE TABLE payment_details (
 );
 
 ALTER TABLE payment_details
-ADD CONSTRAINT fk_order_id
+ADD CONSTRAINT fk_payment_details_to_order_id
 FOREIGN KEY (order_id)
 REFERENCES order_details (id);
 
@@ -241,7 +241,7 @@ CREATE TABLE order_item (
 );
 
 ALTER TABLE order_item
-ADD CONSTRAINT fk_order_id
+ADD CONSTRAINT fk_order_item_to_order_id
 FOREIGN KEY (order_id)
 REFERENCES order_details (id);
 
