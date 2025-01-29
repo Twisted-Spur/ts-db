@@ -11,6 +11,14 @@
     <name>DDL Scripts</name>
     <description>JAR containing DDL scripts for database setup</description>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Twisted Spur DB</name>
+            <url>https://maven.pkg.github.com/Twisted-Spur/twistedspur-db</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <resources>
             <resource>
