@@ -1,5 +1,5 @@
 -- Switch to the twisted_spur schema
---SET search_path TO twisted_spur;
+SET search_path TO twisted_spur;
 
 -- Create a table named 'users' within the twisted_spur schema
 CREATE TABLE users (
