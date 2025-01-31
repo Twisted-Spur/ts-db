@@ -8,6 +8,7 @@ CREATE TABLE users (
     last_name TEXT NOT NULL,
     -- not sure what to do with this if passwd is removed
     email TEXT NOT NULL UNIQUE,
+    is_admin BOOLEAN DEFAULT FALSE,
     -- eventually passwd should be removed, and another authentication
     -- provider should be used externally
     passwd TEXT NOT NULL, -- DO NOT store clear text of this
@@ -57,7 +58,7 @@ CREATE TABLE prints (
     transfer_type_id INTEGER,
     -- should a larger range be used here?
     price NUMERIC(12,2) NOT NULL,
-    url_to_print TEXT NOT NULL,
+    url_to_print_image TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -82,9 +83,9 @@ CREATE TABLE suppliers (
 CREATE TABLE products (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     category_id INTEGER,
-    price numeric(12,2),
-    cost numeric(12,2),
-    quantity INTEGER,
+    "name" TEXT,
+    summary TEXT,
+    "description" TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
