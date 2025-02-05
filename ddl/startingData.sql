@@ -16,9 +16,9 @@ SET search_path TO twisted_spur;
 -- Insert sample data into categories table
 INSERT INTO categories (category)
 VALUES
-('Shirts'),
-('Hats'),
-('Cups');
+('Custom Shirts'),
+('Custom Hats'),
+('Custom Drinkware');
 
 -- Insert sample data into transfer_types table
 INSERT INTO transfer_types (transfer_type)
