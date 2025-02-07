@@ -15,7 +15,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Twisted Spur DB</name>
-            <url>https://maven.pkg.github.com/Twisted-Spur/twistedspur-db</url>
+            <url>https://maven.pkg.github.com/Twisted-Spur/ts-db</url>
         </repository>
     </distributionManagement>
 
