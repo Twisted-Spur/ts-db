@@ -28,6 +28,18 @@ VALUES
 ('Screen Print'),
 ('Gang sheet');
 
+INSERT INTO print_placements (category_id, placement)
+VALUES
+(0, 'Left Chest'),
+(0, 'Center Chest'),
+(0, 'Full Front'),
+(0, 'Oversized Front'),
+(0, 'Back Collar'),
+(0, 'Upper Back'),
+(0, 'Full Back'),
+(1, 'Single Center'),
+(2, 'Single Wrap');
+
 -- Insert sample data into prints table
 -- INSERT INTO prints (category_id, transfer_type_id, price, url_to_print)
 -- VALUES

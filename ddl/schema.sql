@@ -73,6 +73,25 @@ ADD CONSTRAINT fk_transfer_type_id
 FOREIGN KEY (transfer_type_id) 
 REFERENCES transfer_types (id);
 
+-- where the prints can be placed on the product (ex. shirt)
+-- it is dependend on the category because "left chest" doesn't 
+-- make sense for hats
+CREATE TABLE print_placements {
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    category_id INTEGER,
+    placement TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+}
+
+CREATE TABLE print_configuration {
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    print_id INTEGER,
+    print_placement_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+}
+
 CREATE TABLE suppliers (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     brand TEXT UNIQUE,
@@ -99,7 +118,6 @@ CREATE TABLE product_skus (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     product_id INTEGER NOT NULL,
     supplier_id INTEGER NOT NULL,
-    print_id INTEGER NOT NULL,
     sku TEXT UNIQUE,
     price numeric(12,2),
     cost numeric(12,2),
@@ -107,6 +125,10 @@ CREATE TABLE product_skus (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+order_item
+product_skus (color, size, type (via product_id))
+
 
 ALTER TABLE product_skus
 ADD CONSTRAINT fk_product_id
@@ -117,11 +139,6 @@ ALTER TABLE product_skus
 ADD CONSTRAINT fk_supplier_id
 FOREIGN KEY (supplier_id) 
 REFERENCES suppliers (id);
-
-ALTER TABLE product_skus
-ADD CONSTRAINT fk_print_id
-FOREIGN KEY (print_id) 
-REFERENCES prints (id);
 
 CREATE TABLE sku_attributes (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
