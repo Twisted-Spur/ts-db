@@ -1,5 +1,7 @@
+CREATE SCHEMA twisted_spur;
+
 -- Switch to the twisted_spur schema
-SET search_path TO twisted_spur;
+SET SCHEMA twisted_spur;
 
 -- Create a table named 'users' within the twisted_spur schema
 CREATE TABLE users (
@@ -76,21 +78,36 @@ REFERENCES transfer_types (id);
 -- where the prints can be placed on the product (ex. shirt)
 -- it is dependend on the category because "left chest" doesn't 
 -- make sense for hats
-CREATE TABLE print_placements {
+CREATE TABLE print_placements (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     category_id INTEGER,
     placement TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-}
+);
 
-CREATE TABLE print_configuration {
+ALTER TABLE print_placements
+ADD CONSTRAINT fk_print_placements_to_category_id
+FOREIGN KEY (category_id) 
+REFERENCES categories (id);
+
+CREATE TABLE print_configuration (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     print_id INTEGER,
     print_placement_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-}
+);
+
+ALTER TABLE print_configuration
+ADD CONSTRAINT fk_print_configuration_to_print_id
+FOREIGN KEY (print_id) 
+REFERENCES prints (id);
+
+ALTER TABLE print_configuration
+ADD CONSTRAINT fk_print_configuration_to_print_placement_id
+FOREIGN KEY (print_placement_id) 
+REFERENCES print_placements (id);
 
 CREATE TABLE suppliers (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -125,10 +142,6 @@ CREATE TABLE product_skus (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-order_item
-product_skus (color, size, type (via product_id))
-
 
 ALTER TABLE product_skus
 ADD CONSTRAINT fk_product_id
