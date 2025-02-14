@@ -1,7 +1,7 @@
 CREATE SCHEMA twisted_spur;
 
 -- Switch to the twisted_spur schema
-SET SCHEMA twisted_spur;
+SET SCHEMA 'twisted_spur';
 
 -- Create a table named 'users' within the twisted_spur schema
 CREATE TABLE users (
@@ -90,24 +90,6 @@ ALTER TABLE print_placements
 ADD CONSTRAINT fk_print_placements_to_category_id
 FOREIGN KEY (category_id) 
 REFERENCES categories (id);
-
-CREATE TABLE print_configuration (
-    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    print_id INTEGER,
-    print_placement_id INTEGER,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-ALTER TABLE print_configuration
-ADD CONSTRAINT fk_print_configuration_to_print_id
-FOREIGN KEY (print_id) 
-REFERENCES prints (id);
-
-ALTER TABLE print_configuration
-ADD CONSTRAINT fk_print_configuration_to_print_placement_id
-FOREIGN KEY (print_placement_id) 
-REFERENCES print_placements (id);
 
 CREATE TABLE suppliers (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -198,6 +180,30 @@ ALTER TABLE cart_item
 ADD CONSTRAINT fk_cart_item_to_product_sku_id
 FOREIGN KEY (product_sku_id) 
 REFERENCES product_skus (id);
+
+CREATE TABLE print_configuration (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    print_id INTEGER,
+    print_placement_id INTEGER,
+    cart_item_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE print_configuration
+ADD CONSTRAINT fk_print_configuration_to_print_id
+FOREIGN KEY (print_id) 
+REFERENCES prints (id);
+
+ALTER TABLE print_configuration  
+ADD CONSTRAINT fk_print_configuration_to_print_placement_id
+FOREIGN KEY (print_placement_id) 
+REFERENCES print_placements (id);
+
+ALTER TABLE print_configuration
+ADD CONSTRAINT fk_print_configuration_to_cart_item_id
+FOREIGN KEY (cart_item_id) 
+REFERENCES cart_item (id);
 
 CREATE TABLE order_statuses (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

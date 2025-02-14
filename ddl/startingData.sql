@@ -1,5 +1,5 @@
 -- Switch to the twisted_spur schema
-SET search_path TO twisted_spur;
+SET SCHEMA 'twisted_spur';
 
 -- Insert sample data into users table
 -- INSERT INTO users (first_name, last_name, email, passwd, birthday, phone_number)
