@@ -20,46 +20,36 @@ VALUES
 ('Custom Hats'),
 ('Custom Drinkware');
 
-WITH shirt_category AS (
-    SELECT category_id FROM categories WHERE category = 'Custom Shirts'
-),
-hat_category AS (
-    SELECT category_id FROM categories WHERE category = 'Custom Hats'
-),
-drinkware_category AS (
-    SELECT category_id FROM categories WHERE category = 'Custom Drinkware'
-)
-
 -- Insert products for each category
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'T-Shirt' FROM categories WHERE category = 'Custom Shirts';
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'T-shirt',     (SELECT id from categories WHERE category='Custom Shirts') );
 
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'Long Sleeve T' FROM categories WHERE category = 'Custom Shirts';
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'Long Sleeve T',     (SELECT id from categories WHERE category='Custom Shirts') );
 
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'Crew Neck' FROM categories WHERE category = 'Custom Shirts';
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'Crew Neck',     (SELECT id from categories WHERE category='Custom Shirts') );
 
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'Hoodie' FROM categories WHERE category = 'Custom Shirts';
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'Hoodie',     (SELECT id from categories WHERE category='Custom Shirts') );
 
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'Kids T' FROM categories WHERE category = 'Custom Shirts';
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'Kids T',     (SELECT id from categories WHERE category='Custom Shirts') );
 
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'Kids Crew' FROM categories WHERE category = 'Custom Shirts';
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'Kids Crew',     (SELECT id from categories WHERE category='Custom Shirts') );
 
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'Trucker' FROM categories WHERE category = 'Custom Hats';
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'Trucker',     (SELECT id from categories WHERE category='Custom Hats') );
 
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'Snapback' FROM categories WHERE category = 'Custom Hats';
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'Snapback',     (SELECT id from categories WHERE category='Custom Hats') );
+    
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'Tumbler',     (SELECT id from categories WHERE category='Custom Drinkware') );
 
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'Tumbler' FROM categories WHERE category = 'Custom Drinkware';
-
-INSERT INTO products (category_id, product_name)
-SELECT category_id, 'Coffee Cup' FROM categories WHERE category = 'Custom Drinkware';
+INSERT INTO products (product_name, category_id) VALUES
+    ( 'Coffee Cup',     (SELECT id from categories WHERE category='Custom Drinkware') );
 
 -- Insert sample data into transfer_types table
 INSERT INTO transfer_types (transfer_type)
@@ -69,18 +59,32 @@ VALUES
 ('Screen Print'),
 ('Gang sheet');
 
-INSERT INTO print_placements (category_id, placement)
-SELECT category_id, 'Left Chest' FROM categories WHERE category = 'Custom Shirts';
--- VALUES
--- (0, 'Left Chest'),
--- (0, 'Center Chest'),
--- (0, 'Full Front'),
--- (0, 'Oversized Front'),
--- (0, 'Back Collar'),
--- (0, 'Upper Back'),
--- (0, 'Full Back'),
--- (1, 'Single Center'),
--- (2, 'Single Wrap');
+INSERT INTO print_placements (placement, category_id) VALUES
+    ( 'Left Chest',     (SELECT id from categories WHERE category='Custom Shirts') );
+
+INSERT INTO print_placements (placement, category_id) VALUES
+    ( 'Center Chest',     (SELECT id from categories WHERE category='Custom Shirts') );
+
+INSERT INTO print_placements (placement, category_id) VALUES
+    ( 'Full Front',     (SELECT id from categories WHERE category='Custom Shirts') );
+
+INSERT INTO print_placements (placement, category_id) VALUES
+    ( 'Oversized Front',     (SELECT id from categories WHERE category='Custom Shirts') );
+
+INSERT INTO print_placements (placement, category_id) VALUES
+    ( 'Back Collar',     (SELECT id from categories WHERE category='Custom Shirts') );
+
+INSERT INTO print_placements (placement, category_id) VALUES
+    ( 'Upper Back',     (SELECT id from categories WHERE category='Custom Shirts') );
+
+INSERT INTO print_placements (placement, category_id) VALUES
+    ( 'Full Back',     (SELECT id from categories WHERE category='Custom Shirts') );
+
+INSERT INTO print_placements (placement, category_id) VALUES
+    ( 'Single Center',     (SELECT id from categories WHERE category='Custom Hats') );
+
+INSERT INTO print_placements (placement, category_id) VALUES
+    ( 'Single Wrap',     (SELECT id from categories WHERE category='Custom Drinkware') );
 
 -- Insert sample data into prints table
 -- INSERT INTO prints (category_id, transfer_type_id, price, url_to_print)
