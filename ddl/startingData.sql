@@ -1,5 +1,5 @@
 -- Switch to the twisted_spur schema
-SET SCHEMA 'twisted_spur';
+SET SCHEMA twisted_spur;
 
 -- Insert sample data into users table
 -- INSERT INTO users (first_name, last_name, email, passwd, birthday, phone_number)
@@ -20,6 +20,47 @@ VALUES
 ('Custom Hats'),
 ('Custom Drinkware');
 
+WITH shirt_category AS (
+    SELECT category_id FROM categories WHERE category = 'Custom Shirts'
+),
+hat_category AS (
+    SELECT category_id FROM categories WHERE category = 'Custom Hats'
+),
+drinkware_category AS (
+    SELECT category_id FROM categories WHERE category = 'Custom Drinkware'
+)
+
+-- Insert products for each category
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'T-Shirt' FROM categories WHERE category = 'Custom Shirts';
+
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'Long Sleeve T' FROM categories WHERE category = 'Custom Shirts';
+
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'Crew Neck' FROM categories WHERE category = 'Custom Shirts';
+
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'Hoodie' FROM categories WHERE category = 'Custom Shirts';
+
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'Kids T' FROM categories WHERE category = 'Custom Shirts';
+
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'Kids Crew' FROM categories WHERE category = 'Custom Shirts';
+
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'Trucker' FROM categories WHERE category = 'Custom Hats';
+
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'Snapback' FROM categories WHERE category = 'Custom Hats';
+
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'Tumbler' FROM categories WHERE category = 'Custom Drinkware';
+
+INSERT INTO products (category_id, product_name)
+SELECT category_id, 'Coffee Cup' FROM categories WHERE category = 'Custom Drinkware';
+
 -- Insert sample data into transfer_types table
 INSERT INTO transfer_types (transfer_type)
 VALUES
@@ -29,16 +70,17 @@ VALUES
 ('Gang sheet');
 
 INSERT INTO print_placements (category_id, placement)
-VALUES
-(0, 'Left Chest'),
-(0, 'Center Chest'),
-(0, 'Full Front'),
-(0, 'Oversized Front'),
-(0, 'Back Collar'),
-(0, 'Upper Back'),
-(0, 'Full Back'),
-(1, 'Single Center'),
-(2, 'Single Wrap');
+SELECT category_id, 'Left Chest' FROM categories WHERE category = 'Custom Shirts';
+-- VALUES
+-- (0, 'Left Chest'),
+-- (0, 'Center Chest'),
+-- (0, 'Full Front'),
+-- (0, 'Oversized Front'),
+-- (0, 'Back Collar'),
+-- (0, 'Upper Back'),
+-- (0, 'Full Back'),
+-- (1, 'Single Center'),
+-- (2, 'Single Wrap');
 
 -- Insert sample data into prints table
 -- INSERT INTO prints (category_id, transfer_type_id, price, url_to_print)
@@ -52,7 +94,7 @@ VALUES
 ('Gildan'),
 ('Jerzee'),
 ('Comfort Colors'),
-('Bella');
+('Bella+Canvas');
 
 -- Insert sample data into products table
 -- INSERT INTO products (category_id, price, cost, quantity)

@@ -101,9 +101,9 @@ CREATE TABLE suppliers (
 CREATE TABLE products (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     category_id INTEGER,
-    "name" TEXT,
+    product_name TEXT,
     summary TEXT,
-    "description" TEXT,
+    product_description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
