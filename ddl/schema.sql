@@ -1,7 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS twisted_spur;
 
 -- Switch to the twisted_spur schema
-SET SCHEMA twisted_spur;
+SET SCHEMA 'twisted_spur';
 
 -- Create a table named 'users' within the twisted_spur schema
 CREATE TABLE users (
