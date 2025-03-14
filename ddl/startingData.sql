@@ -93,7 +93,7 @@ INSERT INTO print_placements (placement, category_id) VALUES
 -- (2, 2, 29.99, 'http://example.com/print2');
 
 -- Insert sample data into suppliers table
-INSERT INTO suppliers (brand)
+INSERT INTO suppliers (supplier_name)
 VALUES
 ('Gildan'),
 ('Jerzee'),
