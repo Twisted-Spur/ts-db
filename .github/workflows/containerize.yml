@@ -31,7 +31,7 @@ jobs:
       # Step 4: Build the Podman image
       - name: Build Podman image
         run: |
-          podman build -t ghcr.io/${{ github.repository }}/my-image:latest .
+          podman build -t ghcr.io/twisted-spur/ts-db/ts-db:latest .
 
       # Step 5: Push the image to GitHub Container Registry
       - name: Push Podman image
