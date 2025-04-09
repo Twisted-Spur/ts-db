@@ -1,0 +1,2 @@
+POSTGRES_USER=tsAdmin
+POSTGRES_DB=postgres
