@@ -4,11 +4,9 @@ FROM postgres:17.4-alpine3.21
 # Set environment variables for PostgreSQL
 # These are typical settings; adjust as needed for your project
 # Use ARG for parameterization
-ARG POSTGRES_PASSWORD
-
-ENV POSTGRES_USER=tsAdmin
-ENV POSTGRES_PASSWORD=$TS_ADMIN_PW
-ENV POSTGRES_DB=postgres
+# ENV POSTGRES_USER=tsAdmin
+# ENV POSTGRES_PASSWORD=
+# ENV POSTGRES_DB=postgres
 
 # Copy initialization scripts into the Docker image
 # Place your SQL load script in the same directory as this Dockerfile
