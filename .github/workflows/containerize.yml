@@ -36,4 +36,4 @@ jobs:
       # Step 5: Push the image to GitHub Container Registry
       - name: Push Podman image
         run: |
-          podman push ghcr.io/Twisted-Spur/ts-db/ts-db:latest
+          podman push ghcr.io/twisted-spur/ts-db/ts-db:latest
