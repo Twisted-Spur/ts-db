@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -30,8 +34,10 @@ jobs:
 
       # Step 4: Build the Podman image
       - name: Build Podman image
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.TS_ADMIN_PW }}
         run: |
-          podman build -t ghcr.io/twisted-spur/ts-db/ts-db:latest .
+          podman build --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -t ghcr.io/twisted-spur/ts-db/ts-db:latest .
 
       # Step 5: Push the image to GitHub Container Registry
       - name: Push Podman image
