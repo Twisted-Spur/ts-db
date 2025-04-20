@@ -1,0 +1,17 @@
+services:
+  db:
+    image: ts-db:latest
+    container_name: ts-db
+    restart: always
+    environment:
+      POSTGRES_USER: tsAdmin
+      POSTGRES_PASSWORD: ${TS_POSTGRES_PW}
+      POSTGRES_DB: postgres
+    volumes:
+      - ts-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  ts-data:
+    driver: local
